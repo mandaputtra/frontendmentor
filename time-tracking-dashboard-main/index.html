@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+  
+  <title>Frontend Mentor | Time tracking dashboard</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    body, html {
+      padding: 1rem;
+      font-family: 'Rubik', sans-serif;
+      height: 100%;
+      position: relative;
+      background-color: #0d1323;
+    }
+
+    * {
+      margin: 0;
+    }
+
+    .attribution { font-size: 11px; text-align: center; color: white }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    .container {
+      width: 90%;
+      height: 55%;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(4, 1fr);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -40%);
+    }
+
+    .profile-container {
+      color: white;
+      border-radius: 10px;
+      grid-row-start: 1;
+      grid-row-end: 3;
+      background-color: #1d204a;
+    }
+
+    .profile {
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      background-color: #5746ea;
+      border-radius: 10px;
+    }
+
+    .profile-image {
+      border: 2px solid white;
+      border-radius: 100%;
+      margin: 1rem 0;
+    }
+
+    .profile p {
+      font-size: .8rem;
+    }
+
+    .profile h2 {
+      font-size: 2.5em;
+    }
+
+    input[type=radio] {
+      display: none;
+    }
+
+    input[type="radio"]:checked + label {
+      color: white;
+    }
+
+    input[type="radio"] + label {
+      color: #4d5192;
+      font-size: 1.2rem;
+    }
+
+    .filter {
+      display: flex;
+      padding: 1rem;
+      flex-direction: column;
+      height: 30%;
+    }
+
+    .filter > div {
+      flex: 1;
+    }
+
+    .summary-container {
+      z-index: -2;
+      padding-top: 15%;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .summary-inner {
+      padding: 1rem;;
+      color: white;
+      height: 85%;
+      border-radius: 10px;
+      background-color: #1d204a;
+    }
+
+    .summary-image {
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      right: 0;
+    }
+
+    .summary-inner .detail {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+
+    .summary-inner h2 {
+      font-size: 2.5rem;
+    }
+    
+    .summary-inner p {
+      font-size: 1rem;
+    }
+
+    .summary-inner .header p {
+      display: inline;
+      font-size: 1.5rem;
+    }
+
+    .summary-inner .header .view-more {
+      float: right;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .work {
+      background-color: #ff8e67;
+    }
+
+    .play {
+      background-color: #56c2e6;
+    }
+
+    .study {
+      background-color: #f36380;
+    }
+
+    .exercise {
+      background-color: #4bcf82;
+    }
+
+    .social {
+      background-color: #7235d1;
+    }
+
+    .self-care {
+      background-color: #f1c75a;
+    }
+
+    .attribution {
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .container {
+        top: 22%;
+        width: 100%;
+        row-gap: 2rem;
+      }
+
+      .profile-container, .summary-container {
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+
+      .profile-image {
+        margin: 0 1rem 0 0;
+      }
+
+      .profile {
+        flex-direction: row;
+        padding: 3rem;
+        height: 35%;
+        align-items: center;
+        background-color: #5746ea;
+      }
+
+      .filter {
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: center;
+        height: 100%;
+      }
+
+      .summary-container {
+        padding-top: 7%;
+      }
+
+      .summary-inner .detail {
+        margin-top: 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+    }
+
+
+    @media only screen and (max-width: 375px) {
+      .profile h2 {
+        font-size: 2rem;
+      }
+      .detail h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media only screen and (min-width: 1440px) {
+      .container {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="container">
+    <div class="profile-container">
+      <div class="profile">
+        <img class="profile-image" src="./images/image-jeremy.png" width="80px" height="80px" alt="avatar image"/>
+        <div class="profile-detail">
+          <p>Report for</p>
+          <h2>Jeremy Robson</h2> 
+        </div>
+      </div>
+      <div class="filter">
+        <div>
+          <input type="radio" name="filter" id="daily" onchange="changeFilter(this)" value="daily">
+          <label for="daily">Daily</label>
+        </div>
+        <div>
+          <input type="radio" name="filter" id="weekly" onchange="changeFilter(this)" value="weekly" checked>
+          <label for="weekly">Weekly</label>
+        </div>
+        <div>
+          <input type="radio" name="filter" id="monthly" onchange="changeFilter(this)" value="monthly">
+          <label for="monthly">Monthly</label>
+        </div>
+      </div>
+    </div>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://twitter.com/_mandaputtra">Manda Putra</a>.
+    </div>
+  </section>
+
+  <script src="./index.js"></script>
+</body>
+</html>
